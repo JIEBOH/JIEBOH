@@ -1,18 +1,30 @@
-# Type expression agent
+# Weather Recommendation Agent
 
-Is an agent that receives a reference to a mathematical expression. If the expression contains x, x^2, or x^3, it outputs the corresponding result.
+This is an agent that makes an API request to retrieve the weather. If the weather is rainy, it recommends taking an umbrella.
 
 ---
 
-#### **Action class: `action_translation_expression`**
-Generates an equation based on a template and performs argument mapping if needed.
+### **Action class: `action_create_request`**
+Performs an API request to retrieve weather information and provides a recommendation based on the weather conditions.
 
-#### **Parameters:**
-- `amountX`: The number of x in the expression
+---
 
-#### **Workflow:**
-1. The first agent receives a reference to a mathematical expression and an input_structure. Then it translates the received expression and receives the number of X in the expression.
-2. The second agent receives a structure and a translated mathematical expression and a set of rules to determine its type. Then the type is determined, for example: square and the agent produces the result.
+### **Parameters:**
+- `weather`: The weather condition retrieved from the API (e.g., sunny, rainy, cloudy, etc.)
+
+---
+
+### **Workflow:**
+
+1. First Agent:
+   - Makes an API request to retrieve weather data.
+   - Analyzes the weather condition (e.g., rainy, sunny, etc.) and provides an initial recommendation.
+
+2. Second Agent:
+   - Receives the weather condition and the initial recommendation from the first agent.
+   - Provides a final recommendation based on the weather condition and the initial recommendation.
+
+
 <img width="351" alt="1" src="https://github.com/user-attachments/assets/f638f10a-9e17-478d-9fe0-c16c6413615c" />
 
 
@@ -33,6 +45,6 @@ Possible result codes:
 
 | Code                             | Description                                   |
 |----------------------------------|-----------------------------------------------|
-| `SC_RESULT_LINEAR_EQUATION`      | Linear equation                               |
-| `SC_RESULT_QUADRATIC_EQUATION`   | Quadratic equation                            |
-| `SC_RESULT_CUBIC_EQUATION`       | Cubic equation                                |    
+| `SC_RESULT_Take_an_umbrella`      | Weather rainy                           |
+| `SC_RESULT_Dont_take_an_umbrella` | Weather sunny                           |
+  
