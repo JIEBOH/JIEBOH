@@ -1,48 +1,34 @@
-# Лабораторная работа 2
-## Лабораторная работа 1
-Условие:
+# Type expression agent
 
-Создать файл sh и bat, который выполняет следующее:  
-## На вход пакетному файлу приходит число (как параметр пакетного файла). Данное число является количеством секунд, по прошествию которых будет создан файл, в него записаны запущенные текущие процессы, затем создан второй файл, куда будет записано количество запущенных процессов.
+Is an agent that receives a reference to a mathematical expression. If the expression contains x, x^2, or x^3, it outputs the corresponding result.
 
+---
 
-## Работа bat:
+#### **Action class: `action_translation_expression`**
+Generates an equation based on a template and performs argument mapping if needed.
 
-```bash
-@echo off
+#### **Parameters:**
+- `amountX`: The number of x in the expression
 
-REM Получаем количество секунд из аргументов командной строки
-set seconds=%1
+#### **Workflow:**
+1. The first agent receives a reference to a mathematical expression and an input_structure. Then it translates the received expression and receives the number of X in the expression.
+2. The second agent receives a structure and a translated mathematical expression and a set of rules to determine its type. Then the type is determined, for example: square and the agent produces the result.
 
-REM Создаем файл, в который будет записаны запущенные процессы
-tasklist > process_list.txt
+![Example Image](https://github.com/jakxcvv/jakxcvv1/blob/main/photo_2025-04-14_10-51-00.jpg)
 
-REM Ждем указанное количество секунд
-ping 127.0.0.1 -n %seconds% > nul
+## **Example**
 
-REM Создаем второй файл, в который будет записано количество запущенных процессов
-tasklist /FO csv | find /c /v "" > process_count.txt
-```
+#### **Example of an input structure:**
+![Example Image](https://github.com/jakxcvv/jakxcvv1/blob/main/photo_2025-04-14_10-52-11.jpg))
 
-Описание переменных:
+#### **Example of an output structure:**
+![Example Image](https://github.com/jakxcvv/jakxcvv1/blob/main/photo_2025-04-14_10-52-11.jpg)
 
-+ %1 - Это переменная, которая получает значение первого аргумента командной строки. Она используется для определения количества секунд ожидания.
+## **Result Codes**
+Possible result codes:
 
-+ /FO csv - Этот аргумент задает формат вывода команды tasklist в виде CSV (Comma-Separated Values), что позволяет легко обрабатывать вывод с помощью других инструментов.
-
-+ /c - Этот аргумент указывает команде find выполнить поиск и подсчет соответствующих строк во вводе.
-
-+ /v "" - Этот аргумент указывает команде find искать все строки, которые не содержат пустую строку. Таким образом, он используется для подсчета строк вывода команды tasklist.
-
-Эти аргументы используются в сценарии для следующих целей:
-
-Первый аргумент (%1) используется для определения количества секунд ожидания. Значение этого аргумента передается в переменную seconds, которая затем используется в команде ping для ожидания указанного количества секунд.
-
-Аргумент /FO csv используется в команде tasklist, чтобы получить список процессов в формате CSV, который записывается в файл process_list.txt.
-
-Аргументы /c и /v "" используются в команде find, чтобы подсчитать количество строк вывода команды tasklist (т.е. количество запущенных процессов) и записать это значение в файл process_count.txt.
-
-Таким образом, аргументы в данном сценарии используются для определения времени ожидания, формата вывода команды tasklist и подсчета количества запущенных процессов.
-
-<img width="1306" alt="пример запуска" src="https://github.com/JIEBOH/JIEBOH/assets/146937124/aed5c8c5-2a85-4b9f-bb46-b69be58a5eec">
-<img width="1427" alt="ример выполнения" src="https://github.com/JIEBOH/JIEBOH/assets/146937124/00e2a43c-4bd7-458c-9ce9-17e7b6131cbb">
+| Code                             | Description                                   |
+|----------------------------------|-----------------------------------------------|
+| `SC_RESULT_LINEAR_EQUATION`      | Linear equation                               |
+| `SC_RESULT_QUADRATIC_EQUATION`   | Quadratic equation                            |
+| `SC_RESULT_CUBIC_EQUATION`       | Cubic equation                                |    
