@@ -1,4 +1,4 @@
-# Weather Recommendation Agent
+# Weather Request Agent
 
 This is an agent that makes an API request to retrieve the weather. If the weather is rainy, it recommends taking an umbrella.
 
@@ -14,17 +14,27 @@ Performs an API request to retrieve weather information and provides a recommend
 
 ---
 
-### **Workflow:**
 
-1. First Agent:
-   - Makes an API request to retrieve weather data.
-   - Analyzes the weather condition (e.g., rainy, sunny, etc.) and provides an initial recommendation.
 
-2. Second Agent:
-   - Receives the weather condition and the initial recommendation from the first agent.
+# Recomnadation Agent
+
+   - Receives the weather condition
    - Provides a final recommendation based on the weather condition and the initial recommendation.
+   - 
+   ### **Action class: `action_recomendation`**
+Performs an API request to retrieve weather information and provides a recommendation based on the weather conditions.
+
+---
 
 
+### **Parameters:**
+- `tka_an_umbella`: yes or no
+---
+
+### **Workflow:**
+   - Makes an API request to retrieve weather data.
+
+---
 <img width="351" alt="1" src="https://github.com/user-attachments/assets/f638f10a-9e17-478d-9fe0-c16c6413615c" />
 
 
